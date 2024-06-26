@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pid_manage.c                                       :+:      :+:    :+:   */
+/*   pid_manager.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:22:36 by fli               #+#    #+#             */
-/*   Updated: 2024/06/26 11:45:09 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/26 14:10:33 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/pipex.h"
 
-t_pids	*ft_lstnew_pipex()
+t_pids	*ft_lstnew_pipex(int cmd_i)
 {
 	t_pids	*n;
 
 	n = malloc(sizeof(t_pids));
 	if (n == NULL)
 		return (NULL);
+	n->cmd_i = cmd_i;
 	n->status = 0;
 	n->next = NULL;
 	return (n);

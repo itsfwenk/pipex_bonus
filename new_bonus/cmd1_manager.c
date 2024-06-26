@@ -6,18 +6,18 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:56:56 by fli               #+#    #+#             */
-/*   Updated: 2024/06/26 11:44:58 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/26 14:02:15 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	cmd1_child(t_pids	**pid_list, char **argv, char **envp)
+int	cmd1_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp)
 {
 	pid_t	pid1;
 	t_pids	*new_nod;
 
-	new_nod = ft_lstnew_pipex();
+	new_nod = ft_lstnew_pipex(cmd_i);
 	if (new_nod == NULL)
 	{
 		ft_lstclear_pipex(pid_list);
@@ -34,6 +34,9 @@ int	cmd1_child(t_pids	**pid_list, char **argv, char **envp)
 		if (cmd1_exec(argv, envp) == -1)
 			return (-1);
 	}
+	if (dup2(new_nod->pipefd[0], 0) == -1);
+		return (-1);
+	close_pipe(new_nod->pipefd);
 	new_nod->p_id = pid1;
 	return (new_nod->status);
 }

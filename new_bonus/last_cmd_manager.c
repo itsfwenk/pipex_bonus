@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:31:49 by fli               #+#    #+#             */
-/*   Updated: 2024/06/26 11:44:57 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/26 14:09:01 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int	cmd2_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp)
 {
-	int		fd_out;
 	pid_t	pid2;
 	t_pids	*new_nod;
 
-	new_nod = ft_lstnew_pipex();
+	new_nod = ft_lstnew_pipex(cmd_i);
 	if (new_nod == NULL)
 	{
 		ft_lstclear_pipex(pid_list);
@@ -30,11 +29,12 @@ int	cmd2_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp)
 	pid2 = fork();
 	if (pid2 == 0)
 	{
-		if (cmd2_fd_manager(cmd_i, argv, &pid_list) == -1)
+		if (cmd2_fd_manager(cmd_i, argv, new_nod) == -1)
 			return (-1);
 		if (cmd2_exec(argv, envp) == -1)
 			return (-1);
 	}
+	close_pipe(new_nod->pipefd);
 	new_nod->p_id = pid2;
 	return (new_nod->status);
 }

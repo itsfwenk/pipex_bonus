@@ -6,12 +6,11 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:40:12 by fli               #+#    #+#             */
-/*   Updated: 2024/06/25 11:48:28 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/26 14:20:16 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "libft.h"
+#include "./includes/pipex.h"
 
  char	*get_pathname(char **path_tab, char *cmd)
 {
