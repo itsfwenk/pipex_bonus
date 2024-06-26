@@ -1,0 +1,13 @@
+int	cmd1_child(int pipefd[2], char **argv, char **envp)
+	int		fd_in;
+	int		child1_status;
+int	cmd2_child(int pipefd[2], char **argv, char **envp)
+	int		fd_out;
+	int		child2_status;
+int	main(int argc, char **argv, char **envp)
+	int	pipe_ret;
+	int	pipefd[2];
+	// printf("%s\n", argv[0]);
+	// int i = 0;
+	// 	printf("%s\n", path[i++]);
+	// HELLO WORLD int

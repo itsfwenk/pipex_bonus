@@ -1,0 +1,11 @@
+int	cmd1_child(t_pids	**pid_list, int pipefd[2], char **argv, char **envp)
+	int		fd_in;
+int	cmd2_child(t_pids	**pid_list, int pipefd[2], char **argv, char **envp)
+	int		fd_out;
+			ft_fprintf(2, "%s: Permission denied", argv[4]);
+int	main(int argc, char **argv, char **envp)
+	int	pipefd[2];
+		ft_fprintf(2, "pipe error");
+	// printf("%s\n", argv[0]);
+	// int i = 0;
+	// 	printf("%s\n", path[i++]);
