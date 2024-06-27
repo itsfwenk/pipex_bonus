@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:31:49 by fli               #+#    #+#             */
-/*   Updated: 2024/06/26 14:19:55 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 10:12:25 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	cmd2_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp)
 	{
 		if (cmd2_fd_manager(cmd_i, argv, new_nod) == -1)
 			return (-1);
-		if (cmd2_exec(argv, envp) == -1)
+		if (cmd2_exec(cmd_i, argv, envp) == -1)
 			return (-1);
 	}
 	close_pipe(new_nod->pipefd);
@@ -39,19 +39,19 @@ int	cmd2_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp)
 	return (new_nod->status);
 }
 
-int	cmd2_exec(char **argv, char **envp)
+int	cmd2_exec(int cmd_i, char **argv, char **envp)
 {
 	char	**cmd2;
 	char	*cmd2_path;
 
-	cmd2 = ft_split((const char *)argv[3], ' ');
+	cmd2 = ft_split((const char *)argv[cmd_i], ' ');
 	if (cmd2 == NULL)
 		return (-1);
 	cmd2_path = get_pathname(get_path_tab(envp), cmd2[0]);
 	if (cmd2_path == NULL)
 	{
 		free(cmd2);
-		ft_fprintf(2, "%s: command not found\n", argv[3]);
+		ft_fprintf(2, "%s: command not found\n", argv[cmd_i]);
 		return (-1);
 	}
 	if (cmd_exec(cmd2, cmd2_path, envp) == -1)

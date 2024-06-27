@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:16:14 by fli               #+#    #+#             */
-/*   Updated: 2024/06/26 17:48:18 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 10:17:53 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,12 @@ int	cmd2_fd_manager(int cmd_i, char **argv, t_pids	*new_nod)
 {
 	int	fd_out;
 
-	dprintf(2, "creating outfile\n");
-	dprintf(2, "cmd_i : %d\n", cmd_i);
-
 	fd_out = open(argv[cmd_i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd_out == -1)
 	{
 		ft_fprintf(2, "%s: Permission denied", argv[4]);
 		return (-1);
 	}
-	dprintf(2, " outfile created\n");
 	if (dup2(fd_out, 1) == -1)
 		return (-1);
 	close(fd_out);

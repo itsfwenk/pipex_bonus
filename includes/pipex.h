@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:46:04 by fli               #+#    #+#             */
-/*   Updated: 2024/06/26 15:47:56 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 10:11:44 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	cmd_middle_exec(int cmd_i, char **argv, char **envp);
 
 int	cmd2_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp);
 
-int	cmd2_exec(char **argv, char **envp);
+int	cmd2_exec(int cmd_i, char **argv, char **envp);
 
 char	*ft_strjoin_pipex(char const *s1, char const *s2);
 

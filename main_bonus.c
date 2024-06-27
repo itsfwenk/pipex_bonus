@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:02:34 by fli               #+#    #+#             */
-/*   Updated: 2024/06/26 17:48:38 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 10:32:58 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,6 @@ int	cmd_exec(char **cmd, char *cmd_path, char **envp)
 		return (-1);
 	return (0);
 }
-void	print_content(int fd)
-{
-	// int	i;
-	char	buf[100000];
-
-	read(fd, buf, 99999);
-	dprintf(2, "std in content : \n%s\n", buf);
-	// i = 0;
-	// while (buf[i])
-	// {
-	// 	write(1, &buf[i++], 1);
-	// }
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -40,11 +27,10 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 5)
 		return (0);
-	cmd_i = 2;
 	pid_list = NULL;
 	if (cmd1_child(cmd_i, &pid_list, argv, envp) == -10)
 		exit(EXIT_FAILURE);
-	cmd_i = 3;
+	cmd_i++;;
 	while (cmd_i < (argc - 2))
 	{
 		cmd_middle_child(cmd_i, &pid_list, argv, envp);

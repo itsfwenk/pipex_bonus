@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:49:20 by fli               #+#    #+#             */
-/*   Updated: 2024/06/26 17:30:27 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 10:14:12 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	cmd_middle_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp)
 	pid_t	pid_i;
 	t_pids	*new_nod;
 
-	dprintf(2, "NOUS SOMMES AU TOUT DEBUT\n");
-	print_content(0);
 	new_nod = ft_lstnew_pipex(cmd_i);
 	if (new_nod == NULL)
 	{
@@ -26,26 +24,18 @@ int	cmd_middle_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp)
 		return (-1);
 	}
 	ft_lstadd_back_pipex(pid_list, new_nod);
-	// dprintf(2, "NOUS SOMMES AVANT LA PIPE\n");
-	// print_content(0);
 	if (pipe((new_nod)->pipefd) == -1)
 		exit(EXIT_FAILURE);
-	// dprintf(2, "NOUS SOMMES AVANT LA FOURCHETTE\n");
-	// print_content(0);
 	pid_i = fork();
 	if (pid_i == 0)
 	{
-		// dprintf(2, "NOUS SOMMES DANS L'ENFANT DU MILIEU\n");
-		// print_content(0);
 		if (cmd_fd_manager(new_nod) == -1)
 			return (-1);
-		// dprintf(2, "about to exec middle\n");
 		if (cmd_middle_exec(cmd_i, argv, envp) == -1)
 			return (-1);
 	}
 	if (dup2(new_nod->pipefd[0], STDIN_FILENO) == -1)
 		return (-1);
-	print_content(new_nod->pipefd[0]);
 	close_pipe(new_nod->pipefd);
 	new_nod->p_id = pid_i;
 	return (new_nod->status);
