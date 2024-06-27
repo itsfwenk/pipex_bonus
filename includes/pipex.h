@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:46:04 by fli               #+#    #+#             */
-/*   Updated: 2024/06/27 11:56:30 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 14:55:44 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include "libft.h"
-#include "../get_next_line/get_next_line_bonus.h"
+#include "get_next_line.h"
 
 typedef struct s_pids
 {
@@ -80,10 +80,14 @@ void	ft_fprintf_s(va_list arg_ptr, int *count, int fd);
 
 void	ft_fprintf_put(const char letter, va_list arg_ptr, int *count, int fd);
 
-int	ft_fprintf(int fd, const char *entry, ...);
+int		ft_fprintf(int fd, const char *entry, ...);
 
 void	infile_check(char **argv, int err);
 
 void	print_content(int fd);
+
+int		here_doc_checker(char **argv);
+
+int		if_here_doc(char **argv);
 
 #endif

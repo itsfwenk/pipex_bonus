@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:56:56 by fli               #+#    #+#             */
-/*   Updated: 2024/06/26 17:48:30 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 17:16:43 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	cmd1_exec(char **argv, char **envp)
 	char	**cmd1;
 	char	*cmd1_path;
 
-	cmd1 = ft_split((const char *)argv[2], ' ');
+	if (here_doc_checker(argv) == -11)
+		cmd1 = ft_split((const char *)argv[2], ' ');
+	else
+		cmd1 = ft_split((const char *)argv[3], ' ');
 	if (cmd1 == NULL)
 		return (-1);
 	cmd1_path = get_pathname(get_path_tab(envp), cmd1[0]);

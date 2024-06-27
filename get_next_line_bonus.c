@@ -1,52 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:36:22 by fli               #+#    #+#             */
-/*   Updated: 2024/06/07 10:28:35 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 13:56:42 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "./includes/get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
 	char			*gnl;
-	static t_list	*init = NULL;
-	t_list			*new;
+	static t_gnl	*init[1024] = {0};
+	t_gnl			*new;
 
+	if (fd >= 1024)
+		return (NULL);
 	new = NULL;
-	while (end_line(&init) != -1)
+	while (end_line(&init[fd]) != -1)
 	{
-		new = ft_lstnew(fd, &init);
+		new = ft_lstnew_gnl(fd, &init[fd]);
 		if (new == NULL)
 		{
-			ft_lstclear(&init);
+			ft_lstclear_gnl(&init[fd]);
 			return (NULL);
 		}
-		ft_lstadd_back(&init, new);
+		ft_lstadd_back_gnl(&init[fd], new);
 	}
-	gnl = ft_strdup(&init, &gnl);
+	gnl = ft_strdup_gnl(&init[fd], &gnl);
 	if (gnl == NULL)
 	{
-		ft_lstclear(&init);
+		ft_lstclear_gnl(&init[fd]);
 		return (NULL);
 	}
 	return (gnl);
 }
 
-int	end_line(t_list **current)
+int	end_line(t_gnl **current)
 {
 	int		i;
-	t_list	*pos;
+	t_gnl	*pos;
 
 	if (!*current)
 		return (0);
 	if (((*current)->s)[(*current)->min] == '\0')
-		ft_lstdelone(current);
+		ft_lstdelone_gnl(current);
 	pos = *current;
 	while (pos != NULL)
 	{
@@ -63,11 +65,11 @@ int	end_line(t_list **current)
 	return (1);
 }
 
-int	count_char(t_list **lst)
+int	count_char_gnl(t_gnl **lst)
 {
 	int		i;
 	int		count;
-	t_list	*pos;
+	t_gnl	*pos;
 
 	pos = *lst;
 	i = pos->min;
@@ -92,29 +94,21 @@ int	count_char(t_list **lst)
 
 int	main()
 {
-	int	nb_l;
+
+	int fd = open("te.txt", O_RDONLY);
+	printf("%s\n", get_next_line(fd));
+	printf("%s\n", get_next_line(fd));
 	int	fd;
 	char *gnl;
 
 	printf("BUFFER SIZE = %d\n", BUFFER_SIZE);
-	gnl = NULL;
-	fd = open("testfile", O_RDONLY);
-	if (fd == -1)
-			printf("Cannot read file.\n");
-	nb_l = 0;
-	while (nb_l < 3)
-	{
+	fd = open("text.txt", O_RDONLY);
 
-		printf("GNL OUTPUT :\n");
+	gnl = get_next_line(fd);
+	while (gnl != NULL)
+	{
+		printf("%s", gnl);
+		free(gnl);
 		gnl = get_next_line(fd);
-		if (gnl == NULL)
-			printf("GNL EST NULL\n");
-		//gnl ? printf("%s\n", gnl) : printf("gnl est vide\n");
-		else
-		{
-			printf("%s", gnl);
-			free(gnl);
-		}
-		nb_l++;
 	}
 }*/

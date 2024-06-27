@@ -1,40 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:36:22 by fli               #+#    #+#             */
-/*   Updated: 2024/06/27 12:01:02 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 14:56:48 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
 	char			*gnl;
-	static t_gnl	*init[1024] = {0};
+	static t_gnl	*init = NULL;
 	t_gnl			*new;
 
-	if (fd >= 1024)
-		return (NULL);
 	new = NULL;
-	while (end_line(&init[fd]) != -1)
+	while (end_line(&init) != -1)
 	{
-		new = ft_lstnew_gnl(fd, &init[fd]);
+		new = ft_lstnew_gnl(fd, &init);
 		if (new == NULL)
 		{
-			ft_lstclear_gnl(&init[fd]);
+			ft_lstclear_gnl(&init);
 			return (NULL);
 		}
-		ft_lstadd_back_gnl(&init[fd], new);
+		ft_lstadd_back_gnl(&init, new);
 	}
-	gnl = ft_strdup_gnl(&init[fd], &gnl);
+	gnl = ft_strdup_gnl(&init, &gnl);
 	if (gnl == NULL)
 	{
-		ft_lstclear_gnl(&init[fd]);
+		ft_lstclear_gnl(&init);
 		return (NULL);
 	}
 	return (gnl);
@@ -94,21 +92,29 @@ int	count_char_gnl(t_gnl **lst)
 
 int	main()
 {
-
-	int fd = open("te.txt", O_RDONLY);
-	printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd));
+	int	nb_l;
 	int	fd;
 	char *gnl;
 
 	printf("BUFFER SIZE = %d\n", BUFFER_SIZE);
-	fd = open("text.txt", O_RDONLY);
-
-	gnl = get_next_line(fd);
-	while (gnl != NULL)
+	gnl = NULL;
+	fd = open("testfile", O_RDONLY);
+	if (fd == -1)
+			printf("Cannot read file.\n");
+	nb_l = 0;
+	while (nb_l < 3)
 	{
-		printf("%s", gnl);
-		free(gnl);
+
+		printf("GNL OUTPUT :\n");
 		gnl = get_next_line(fd);
+		if (gnl == NULL)
+			printf("GNL EST NULL\n");
+		//gnl ? printf("%s\n", gnl) : printf("gnl est vide\n");
+		else
+		{
+			printf("%s", gnl);
+			free(gnl);
+		}
+		nb_l++;
 	}
 }*/

@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:16:14 by fli               #+#    #+#             */
-/*   Updated: 2024/06/27 10:17:53 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 17:37:54 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int	cmd1_fd_manager(char **argv, t_pids	*new_nod)
 {
 	int	fd_in;
 
-	fd_in = open(argv[1], O_RDONLY);
+	if (here_doc_checker(argv) == -11)
+		fd_in = open(argv[1], O_RDONLY);
+	else
+		fd_in = open("here_doc", O_RDONLY);
 	if (fd_in == -1)
 	{
 		infile_check(argv, errno);
@@ -30,6 +33,7 @@ int	cmd1_fd_manager(char **argv, t_pids	*new_nod)
 	close_pipe((new_nod)->pipefd);
 	return (0);
 }
+
 int	cmd_fd_manager(t_pids	*new_nod)
 {
 
@@ -43,7 +47,10 @@ int	cmd2_fd_manager(int cmd_i, char **argv, t_pids	*new_nod)
 {
 	int	fd_out;
 
-	fd_out = open(argv[cmd_i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (here_doc_checker(argv) == -11)
+		fd_out = open(argv[cmd_i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else
+		fd_out = open(argv[cmd_i + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd_out == -1)
 	{
 		ft_fprintf(2, "%s: Permission denied", argv[4]);
@@ -52,8 +59,6 @@ int	cmd2_fd_manager(int cmd_i, char **argv, t_pids	*new_nod)
 	if (dup2(fd_out, 1) == -1)
 		return (-1);
 	close(fd_out);
-	// if (dup2((new_nod)->pipefd[0], 0) == -1)
-	// 	return (-1);
 	close_pipe((new_nod)->pipefd);
 	return (0);
 }

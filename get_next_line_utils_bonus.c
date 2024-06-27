@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:56:56 by fli               #+#    #+#             */
-/*   Updated: 2024/06/06 17:04:08 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 18:07:12 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "./includes/get_next_line_bonus.h"
 
-t_list	*ft_lstnew(int fd, t_list **init)
+t_gnl	*ft_lstnew_gnl(int fd, t_gnl **init)
 {
 	int		read_return;
-	t_list	*new;
+	t_gnl	*new;
 
-	new = malloc(sizeof(t_list));
+	new = malloc(sizeof(t_gnl));
 	if (new == NULL)
 		return (NULL);
 	read_return = read(fd, new->s, BUFFER_SIZE);
@@ -33,9 +33,9 @@ t_list	*ft_lstnew(int fd, t_list **init)
 	return (new);
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back_gnl(t_gnl **lst, t_gnl *new)
 {
-	t_list	*last;
+	t_gnl	*last;
 
 	if (!lst || !new)
 		return ;
@@ -56,12 +56,12 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 }
 
-char	*ft_strdup(t_list **init, char **gnl)
+char	*ft_strdup_gnl(t_gnl **init, char **gnl)
 {
 	int		j;
-	t_list	*pos;
+	t_gnl	*pos;
 
-	*gnl = malloc((1 + count_char(init)) * sizeof(char));
+	*gnl = malloc((1 + count_char_gnl(init)) * sizeof(char));
 	if (*gnl == NULL)
 		return (NULL);
 	j = 0;
@@ -70,7 +70,7 @@ char	*ft_strdup(t_list **init, char **gnl)
 	{
 		if ((pos->s)[pos->min] == '\0')
 		{
-			ft_lstdelone(init);
+			ft_lstdelone_gnl(init);
 			pos = *init;
 			continue ;
 		}
@@ -85,9 +85,9 @@ char	*ft_strdup(t_list **init, char **gnl)
 	return (*gnl);
 }
 
-void	ft_lstclear(t_list **lst)
+void	ft_lstclear_gnl(t_gnl **lst)
 {
-	t_list	*temp;
+	t_gnl	*temp;
 
 	if (!lst || !*lst)
 		return ;
@@ -99,9 +99,9 @@ void	ft_lstclear(t_list **lst)
 	}
 }
 
-void	ft_lstdelone(t_list **lst)
+void	ft_lstdelone_gnl(t_gnl **lst)
 {
-	t_list	*temp;
+	t_gnl	*temp;
 
 	if (!lst)
 		return ;
