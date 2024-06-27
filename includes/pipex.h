@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:46:04 by fli               #+#    #+#             */
-/*   Updated: 2024/06/27 10:11:44 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/27 11:56:30 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include "libft.h"
+#include "../get_next_line/get_next_line_bonus.h"
 
 typedef struct s_pids
 {
@@ -33,7 +34,7 @@ typedef struct s_pids
 	struct s_pids	*next;
 }	t_pids;
 
-int	main(int argc, char **argv, char **envp);
+//int	main(int argc, char **argv, char **envp);
 
 char	*get_pathname(char **path_tab, char *cmd);
 
