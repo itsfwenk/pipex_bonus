@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:22 by fli               #+#    #+#             */
-/*   Updated: 2024/06/24 14:34:59 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/28 17:21:49 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	ft_fprintf_s(va_list arg_ptr, int *count, int fd)
 	*count = *count + ft_strlen(s);
 }
 
-void	ft_fprintf_put(const char letter, va_list arg_ptr, int *count, int fd)
-{
-	if (letter == 's')
-		ft_fprintf_s(arg_ptr, count, fd);
-}
+// void	ft_fprintf_put(const char letter, va_list arg_ptr, int *count, int fd)
+// {
+// 	if (letter == 's')
+// 		ft_fprintf_s(arg_ptr, count, fd);
+// }
 
 int	ft_fprintf(int fd, const char *entry, ...)
 {
@@ -46,10 +46,10 @@ int	ft_fprintf(int fd, const char *entry, ...)
 	count = 0;
 	while (entry[i] != '\0')
 	{
-		if (entry[i] == '%')
+		if (entry[i] == '%' && entry[++i] == 's')
 		{
 			i++;
-			ft_fprintf_put(entry[i], arg_ptr, &count, fd);
+			ft_fprintf_s(arg_ptr, &count, fd);
 			i++;
 		}
 		else

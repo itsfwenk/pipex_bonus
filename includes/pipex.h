@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:46:04 by fli               #+#    #+#             */
-/*   Updated: 2024/06/28 11:50:01 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/28 18:10:12 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_pids
 
 	int				cmd_i;
 	int				status;
+	int				exec;
 	int				pipefd[2];
 	pid_t			p_id;
 	struct s_pids	*next;
@@ -52,7 +53,7 @@ void	ft_lst_new_add_back_pipex(pid_t p_id, t_pids **lst);
 
 void	ft_lstclear_pipex(t_pids **lst);
 
-void	wait_pids(t_pids **lst);
+void	wait_pids(t_pids **lst, char **argv);
 
 int	cmd1_fd_manager(char **argv, t_pids	*new_nod);
 
@@ -60,19 +61,19 @@ int	cmd_fd_manager(t_pids	*new_nod);
 
 int	cmd2_fd_manager(int cmd_i, char **argv, t_pids	*new_nod);
 
-int	cmd1_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp);
+int	cmd1_child(int *cmd_i, t_pids	**pid_list, char **argv, char **envp);
 
-int	cmd1_exec(char **argv, char **envp);
+void	cmd1_exec(int cmd_i, t_pids	*new_nod, char **argv, char **envp);
 
 int	cmd_exec(char **cmd, char *cmd_path, char **envp);
 
 int	cmd_middle_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp);
 
-int	cmd_middle_exec(int cmd_i, char **argv, char **envp);
+void	cmd_middle_exec(int cmd_i, t_pids	**new_nod, char **argv, char **envp);
 
 int	cmd2_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp);
 
-int	cmd2_exec(int cmd_i, char **argv, char **envp);
+void	cmd2_exec(int cmd_i, t_pids	*new_nod, char **argv, char **envp);
 
 char	*ft_strjoin_pipex(char const *s1, char const *s2);
 
@@ -86,7 +87,7 @@ void	infile_check(char **argv, int err);
 
 void	print_content(int fd);
 
-int		here_doc_checker(char **argv);
+int	here_doc_checker(char **argv, int *cmd_i);
 
 int		if_here_doc(char **argv);
 

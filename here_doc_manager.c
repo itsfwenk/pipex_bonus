@@ -6,21 +6,23 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 10:25:55 by fli               #+#    #+#             */
-/*   Updated: 2024/06/27 17:49:05 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/28 17:57:03 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/pipex.h"
 
-int	here_doc_checker(char **argv)
+int	here_doc_checker(char **argv, int *cmd_i)
 {
 	// int	fd_hd;
 
 	if (ft_strncmp(argv[1], "here_doc", ft_strlen("here_doc")) == 0)
 	{
 		// fd_hd = if_here_doc(argv);
+		*cmd_i = 3;
 		return (1);
 	}
+	*cmd_i = 2;
 	return (-11);
 }
 int	ft_strncmp_pipex(const char *s1, const char *s2, size_t n)

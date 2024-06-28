@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:02:34 by fli               #+#    #+#             */
-/*   Updated: 2024/06/28 14:26:39 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/28 17:56:15 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,11 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc < 5)
 		return (0);
-	cmd_i = 2;
 	pid_list = NULL;
-	if (here_doc_checker(argv) != -11)
+	if (here_doc_checker(argv, &cmd_i) != -11)
 		if_here_doc(argv);
-	if (cmd1_child(cmd_i, &pid_list, argv, envp) == -10)
+	if (cmd1_child(&cmd_i, &pid_list, argv, envp) == -10)
 		exit(EXIT_FAILURE);
-	cmd_i++;
-	if (here_doc_checker(argv) != -11)
-		cmd_i++;
 	while (cmd_i < (argc - 2))
 	{
 		cmd_middle_child(cmd_i, &pid_list, argv, envp);
@@ -43,8 +39,8 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (cmd2_child(cmd_i, &pid_list, argv, envp) == -1)
 		exit(EXIT_FAILURE);
-	if (here_doc_checker(argv) != -11)
+	if (here_doc_checker(argv, &cmd_i) != -11)
 		unlink("here_doc");
-	wait_pids(&pid_list);
+	wait_pids(&pid_list, argv);
 	ft_lstclear_pipex(&pid_list);
 }
