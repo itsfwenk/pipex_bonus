@@ -1,0 +1,30 @@
+{
+	ignore_grep_leaks
+	Memcheck:Leak
+	fun:grep
+}
+{
+	leak add_history
+	Memcheck:Leak
+	fun:add_history
+}
+{
+	ignore_libgrep
+	Memcheck:Leak
+	obj:/libgrep.so.*
+}
+{
+	grep_leak
+	Memcheck:Leak
+	fun:grep
+}
+{
+	grep_add_history
+	Memcheck:Leak
+	fun:add_history
+}
+{
+	usrbin
+	Memcheck:Leak
+	obj:/usr/bin/*
+}

@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:46:04 by fli               #+#    #+#             */
-/*   Updated: 2024/06/27 14:55:44 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/28 11:50:01 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_pids
 
 //int	main(int argc, char **argv, char **envp);
 
-char	*get_pathname(char **path_tab, char *cmd);
+char	*get_pathname(char **envp, char *cmd);
 
 int	tab_len(char **path_tab);
 

@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:31:49 by fli               #+#    #+#             */
-/*   Updated: 2024/06/27 16:16:54 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/28 14:27:41 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cmd2_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp)
 		if (cmd2_fd_manager(cmd_i, argv, new_nod) == -1)
 			return (-1);
 		if (cmd2_exec(cmd_i, argv, envp) == -1)
-			return (-1);
+			exit(EXIT_FAILURE);
 	}
 	close_pipe(new_nod->pipefd);
 	new_nod->p_id = pid2;
@@ -47,7 +47,7 @@ int	cmd2_exec(int cmd_i, char **argv, char **envp)
 	cmd2 = ft_split((const char *)argv[cmd_i], ' ');
 	if (cmd2 == NULL)
 		return (-1);
-	cmd2_path = get_pathname(get_path_tab(envp), cmd2[0]);
+	cmd2_path = get_pathname(envp, cmd2[0]);
 	if (cmd2_path == NULL)
 	{
 		free(cmd2);

@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:49:20 by fli               #+#    #+#             */
-/*   Updated: 2024/06/27 16:51:27 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/28 14:27:27 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cmd_middle_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp)
 		if (cmd_fd_manager(new_nod) == -1)
 			return (-1);
 		if (cmd_middle_exec(cmd_i, argv, envp) == -1)
-			return (-1);
+			exit(EXIT_FAILURE);
 	}
 	if (dup2(new_nod->pipefd[0], STDIN_FILENO) == -1)
 		return (-1);
@@ -49,7 +49,7 @@ int	cmd_middle_exec(int cmd_i, char **argv, char **envp)
 	cmd = ft_split((const char *)argv[cmd_i], ' ');
 	if (cmd == NULL)
 		return (-1);
-	cmd_path = get_pathname(get_path_tab(envp), cmd[0]);
+	cmd_path = get_pathname(envp, cmd[0]);
 	if (cmd_path == NULL)
 	{
 		free(cmd);
@@ -60,7 +60,7 @@ int	cmd_middle_exec(int cmd_i, char **argv, char **envp)
 	{
 		free(cmd);
 		free(cmd_path);
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
 	return (0);
 }

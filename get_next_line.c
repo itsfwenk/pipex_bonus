@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 16:36:22 by fli               #+#    #+#             */
-/*   Updated: 2024/06/27 14:56:48 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/28 11:46:23 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*get_next_line(int fd)
 	static t_gnl	*init = NULL;
 	t_gnl			*new;
 
+	if (fd == -1)
+		return (ft_lstclear_gnl(&init), NULL);
 	new = NULL;
 	while (end_line(&init) != -1)
 	{

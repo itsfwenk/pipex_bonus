@@ -1,4 +1,0 @@
-int	cmd1_child(int pipefd[2], char **argv, char **envp)
-	int		child1_status = 0;
-// int	cmd2_child(int pipefd[2], char **argv, char **envp)
-// 	int		child2_status;
