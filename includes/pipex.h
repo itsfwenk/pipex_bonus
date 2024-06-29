@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:46:04 by fli               #+#    #+#             */
-/*   Updated: 2024/06/28 18:10:12 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/30 01:12:50 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <stdarg.h>
 #include "libft.h"
 #include "get_next_line.h"
 
 typedef struct s_pids
 {
-
 	int				cmd_i;
 	int				status;
-	int				exec;
 	int				pipefd[2];
 	pid_t			p_id;
 	struct s_pids	*next;
@@ -63,17 +62,17 @@ int	cmd2_fd_manager(int cmd_i, char **argv, t_pids	*new_nod);
 
 int	cmd1_child(int *cmd_i, t_pids	**pid_list, char **argv, char **envp);
 
-void	cmd1_exec(int cmd_i, t_pids	*new_nod, char **argv, char **envp);
+void	cmd1_exec(int cmd_i, char **argv, char **envp);
 
 int	cmd_exec(char **cmd, char *cmd_path, char **envp);
 
-int	cmd_middle_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp);
+int		cmd_middle_child(int *cmd_i, t_pids	**pid_list, char **argv, char **envp);
 
-void	cmd_middle_exec(int cmd_i, t_pids	**new_nod, char **argv, char **envp);
+void	cmd_middle_exec(int cmd_i, char **argv, char **envp);
 
 int	cmd2_child(int cmd_i, t_pids	**pid_list, char **argv, char **envp);
 
-void	cmd2_exec(int cmd_i, t_pids	*new_nod, char **argv, char **envp);
+void	cmd2_exec(int cmd_i, char **argv, char **envp);
 
 char	*ft_strjoin_pipex(char const *s1, char const *s2);
 

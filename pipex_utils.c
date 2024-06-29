@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:40:12 by fli               #+#    #+#             */
-/*   Updated: 2024/06/28 13:43:36 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/29 20:20:21 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 	i = 0;
 	while (path_tab[i] != NULL)
 	{
-		pathname_cmd = ft_strjoin_pipex((char const *)path_tab[i], (char const *)cmd);
+		pathname_cmd = ft_strjoin_pipex(path_tab[i], cmd);
 		if (pathname_cmd == NULL)
 			return (NULL);
 		if (access(pathname_cmd, X_OK) == 0)

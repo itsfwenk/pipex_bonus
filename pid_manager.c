@@ -6,7 +6,7 @@
 /*   By: fli <fli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 14:22:36 by fli               #+#    #+#             */
-/*   Updated: 2024/06/28 18:13:57 by fli              ###   ########.fr       */
+/*   Updated: 2024/06/30 01:24:54 by fli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_pids	*ft_lstnew_pipex(int cmd_i)
 	if (n == NULL)
 		return (NULL);
 	n->cmd_i = cmd_i;
-	n->exec = 0;
 	n->status = 0;
 	n->next = NULL;
 	return (n);
@@ -48,6 +47,7 @@ void	ft_lstadd_back_pipex(t_pids **lst, t_pids *n)
 		last = last->next;
 	}
 }
+
 void	ft_lst_new_add_back_pipex(pid_t p_id, t_pids **lst)
 {
 	t_pids	*n;
@@ -81,10 +81,9 @@ void	wait_pids(t_pids **lst, char **argv)
 	temp = *lst;
 	while (temp != NULL)
 	{
-		//dprintf(2, "waiting for %d\n", temp->p_id);
-		dprintf(2, "temp->exec : %d\n", (temp)->exec);
 		waitpid(temp->p_id, &(temp->status), 0);
-		if (temp->exec == -1)
+		dprintf(2, "child %d status %d\n", temp->cmd_i, WEXITSTATUS(temp->status));
+		if (WEXITSTATUS(temp->status) == 255)
 		{
 			write(2, argv[temp->cmd_i], ft_strlen(argv[temp->cmd_i]));
 			write(2, ": command not found\n", ft_strlen(": command not found\n"));
